@@ -1,7 +1,9 @@
-
 mod shap;
 mod predictor;
 
 fn main() {
-    println!("Hello, world!");
+    let lin_reg = predictor::LinearRegression::new(vec![1.0, 2.0, 3.0], 4.0);
+    let shapley_values = shap::get_shapley_values(
+        &vec![1.0, 2.0, 3.0], &lin_reg, &vec![vec![0.0; 3], vec![0.0; 3], vec![0.0; 3]]);
+    println!("Shapley Values: {:?}", shapley_values);
 }
