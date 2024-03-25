@@ -11,12 +11,17 @@ Its a simple crate. Use cargo run to build and run it, cargo test runs the unit 
 # Shapley Formula
 To avoid the calculation of factorials, we reformulate the Shapley formula so it contains the binomial coefficient instead.
 The binomial coefficient can be efficiently calculated using a running sum and the Shapley formula becomes quite easy to implement.
-$$Sh_i(N,v) = \sum_{S \subseteq N\backslash \lbrace i \rbrace} \frac{(n-1-|S|)!*|S|!}{n!}~ (v(S)-v(S\backslash \lbrace i \rbrace)) \\
-= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \left(\frac{n!}{(n-1-|S|)!*|S|!}\right)^{-1} (v(S)-v(S\backslash \lbrace i \rbrace)) \\
-= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \left(\underbrace{\frac{n!}{(n-|S|)!*|S|!}}_{\text{binomial coefficient}}(n-s)\right)^{-1} (v(S)-v(S\backslash \lbrace i \rbrace)) \\
-= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \left( \binom ns (n-s)\right)^{-1} (v(S)-v(S\backslash \lbrace i \rbrace)) \\
-= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \frac{1}{\binom ns (n-s)} (v(S)-v(S\backslash \lbrace i \rbrace))
-$$
+
+$$Sh_i(N,v) = \sum_{S \subseteq N\backslash \lbrace i \rbrace} \frac{(n-1-|S|)!*|S|!}{n!} (v(S)-v(S\backslash \lbrace i \rbrace))$$
+
+$$= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \left(\frac{n!}{(n-1-|S|)!*|S|!}\right)^{-1} (v(S)-v(S\backslash \lbrace i \rbrace))$$
+
+$$= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \left(\underbrace{\frac{n!}{(n-|S|)!*|S|!}}_{\text{binomial coefficient}}(n-s)\right)^{-1} (v(S)-v(S\backslash \lbrace i \rbrace))$$
+
+$$= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \left( \binom ns (n-s)\right)^{-1} (v(S)-v(S\backslash \lbrace i \rbrace))$$
+
+$$= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \frac{1}{\binom ns (n-s)} (v(S)-v(S\backslash \lbrace i \rbrace))$$
+
 with $n=|N|$ being the number of features, $S$ being a subset of features and $|S|$ being the number of features in the subset.
 
 To iterate over all subsets, we simply count from 0 to $|N\backslash \lbrace i \rbrace| = n-1$ and convert the binary representation to a mask. E.g. 5 = 0b00000101 = {false, false, false, false, false, true, false, false}. S would be the 3rd last and last feature and $|S| = 2$.
