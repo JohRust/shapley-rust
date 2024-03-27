@@ -6,7 +6,7 @@ The implementation is similar to the ExactExplainer from the SHAP python package
 main.rs shows a small example to calculate Shapley values for a Linear Regression model, shapley.rs contains the Shapley value calculation and predictors.rs defines the Predictor trait and a simple Linear Regression struct that implements it.
 
 # Building and running the project.
-Its a simple crate. Use cargo run to build and run it, cargo test runs the unit tests.
+It is a simple crate. Use cargo run to build and run it, cargo test runs the unit tests.
 
 # Shapley Formula
 To avoid the calculation of factorials, we reformulate the Shapley formula so it contains the binomial coefficient instead.
