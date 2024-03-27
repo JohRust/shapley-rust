@@ -43,21 +43,25 @@ fn get_as_bool_vector(n: u32, length: usize) -> Vec<bool> {
 }
 
 fn shapley_frequency(n: u32, s: u32) -> f32 {
-    if n-s <= 0{
+    if n - s <= 0 {
         return 0.0;
     }
-    1.0 / (binomial_coefficient(n, s) * (n-s)) as f32
+    1.0 / (binomial_coefficient(n, s) * (n - s)) as f32
 }
 
-pub fn get_shapley_values(input_data: &Vec<f32>, predictor: &impl Predictor, background_data: &Vec<Vec<f32>>) -> Vec<f32> {
+pub fn get_shapley_values(
+    input_data: &Vec<f32>,
+    predictor: &impl Predictor,
+    background_data: &Vec<Vec<f32>>,
+) -> Vec<f32> {
     let n = input_data.len();
     let mut shapley_values = vec![0.0; n];
 
     for i in 0..n {
         // There are 2^(n-1) subsets to iterate over
-        let num_subsets: u32 = 1 << (n-1);
+        let num_subsets: u32 = 1 << (n - 1);
         for j in 0..num_subsets {
-            let mut mask = get_as_bool_vector(j, n-1);
+            let mut mask = get_as_bool_vector(j, n - 1);
             mask.insert(i, false);
             //Count true values in mask
             let subset_size = mask.iter().filter(|&x| *x).count();
@@ -66,7 +70,8 @@ pub fn get_shapley_values(input_data: &Vec<f32>, predictor: &impl Predictor, bac
             let pred_without_i = predictor.predict(&data_masked);
             data_masked[i] = input_data[i];
             let pred_with_i = predictor.predict(&data_masked);
-            shapley_values[i] += shapley_frequency(n as u32, subset_size as u32) * (pred_with_i - pred_without_i);
+            shapley_values[i] +=
+                shapley_frequency(n as u32, subset_size as u32) * (pred_with_i - pred_without_i);
         }
     }
     shapley_values
@@ -92,7 +97,11 @@ mod tests {
 
     #[test]
     fn test_sample_from_data() {
-        let data = vec![vec![1.0, 12.0, 23.0, 34.0], vec![4.0, 15.0, 26.0, 37.0], vec![7.0, 18.0, 29.0, 39.0]];
+        let data = vec![
+            vec![1.0, 12.0, 23.0, 34.0],
+            vec![4.0, 15.0, 26.0, 37.0],
+            vec![7.0, 18.0, 29.0, 39.0],
+        ];
         let result = sample_from_data(&data);
         assert_eq!(result.len(), 4);
         assert!(result[0] == 1.0 || result[0] == 4.0 || result[0] == 7.0);

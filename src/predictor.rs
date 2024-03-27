@@ -1,4 +1,3 @@
-
 pub trait Predictor {
     fn predict(&self, input: &Vec<f32>) -> f32;
 }
@@ -20,10 +19,7 @@ impl Predictor for LinearRegression {
 
 impl LinearRegression {
     pub fn new(weights: Vec<f32>, bias: f32) -> LinearRegression {
-        LinearRegression {
-            weights,
-            bias,
-        }
+        LinearRegression { weights, bias }
     }
 }
 
