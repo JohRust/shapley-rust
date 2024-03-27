@@ -22,6 +22,6 @@ $$= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \left( \binom{n}{|S|} (n-|S
 
 $$= \sum_{S \subseteq N\backslash \lbrace i \rbrace} \frac{1}{\binom{n}{|S|} (n-|S|)} (v(S)-v(S\backslash \lbrace i \rbrace))$$
 
-with $n=|N|$ being the number of features, $S$ being a subset of features and $|S|$ being the number of features in the subset.
+with $n=|N|$ being the number of all features, $S$ being a subset of features and $|S|$ being the number of features in the subset.
 
-To iterate over all subsets, we simply count from 0 to $|N\backslash \lbrace i \rbrace| = n-1$ and convert the binary representation to a mask. E.g. 5 = 0b00000101 = {false, false, false, false, false, true, false, false}. S would be the 3rd last and last feature and $|S| = 2$.
+To iterate over all subsets, we simply count from 0 to $|N\backslash \lbrace i \rbrace| = n-1$ and convert the binary representation to a mask. E.g. 5 = 0b00000101 = {false, false, false, false, false, true, false, true}. S would be consist of the 3rd last and last feature and $|S| = 2$.
