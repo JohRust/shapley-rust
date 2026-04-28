@@ -1,4 +1,4 @@
-# shapley
+# Exact Calculation of Shapley Values in Rust
 Calculate Shapley values, a game theoretic approach to fairly distribute resources among a set of contributors.
 
 It can be used to calculate feature attribution values for any predictive AI model.
